@@ -29,8 +29,11 @@ describe("converter", () => {
               type: "object",
               properties: {
                 spec: {
-                  title: {
-                    type: "string"
+                  type: "object",
+                  properties: {
+                    title: {
+                      type: "string"
+                    }
                   }
                 }
               }

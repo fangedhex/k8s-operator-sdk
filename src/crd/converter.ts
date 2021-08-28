@@ -1,4 +1,4 @@
-import { V1CustomResourceDefinition } from "@kubernetes/client-node";
+import { V1CustomResourceDefinition, V1JSONSchemaProps } from "@kubernetes/client-node";
 import { noCase } from "change-case";
 import { CustomResourceDefinitionOptions, FieldData } from "./decorators";
 
@@ -36,7 +36,10 @@ export function convert<T extends Function>(classToConvert: T): V1CustomResource
           openAPIV3Schema: {
             type: "object",
             properties: {
-              spec: obj
+              spec: {
+                type: "object",
+                properties: obj
+              }
             }
           }
         }

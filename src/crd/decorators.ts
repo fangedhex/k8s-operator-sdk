@@ -1,5 +1,7 @@
 /// <reference types="reflect-metadata" />
 
+import { CRD } from "./CRD";
+
 export interface CustomResourceDefinitionOptions {
   group: string;
   scope: "Namespaced" | "Cluster";
@@ -15,6 +17,14 @@ export function CustomResourceDefinition(options: CustomResourceDefinitionOption
   return function<T extends Function>(target: T) {
     Reflect.defineMetadata("crd:config", options, target);
   };
+}
+
+export function Group(name: string) {
+  return function<T extends { new (...args: any[]): CRD }>(constructor: T) {
+    return class extends constructor {
+      group = name;
+    }
+  }
 }
 
 export function Field(type: string) {
